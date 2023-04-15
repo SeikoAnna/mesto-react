@@ -107,22 +107,6 @@ export default function App() {
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
       />
-
-{/* <template id="element__card">
-  <div className="element">
-    <button className="element__picture-botton" type="button">
-      <img className="element__picture" src="#" alt="#" />
-    </button>
-    <button className="element__delete" type="button"></button>
-    <div className="element__content">
-      <h2 className="element__title"></h2>
-      <div className="element__like_container">
-      <button className="element__like" type="button"></button>
-      <p className="element__like_amount">0</p>
-    </div>
-    </div>
-  </div>
-</template> */}
 </div>
  );
 }
