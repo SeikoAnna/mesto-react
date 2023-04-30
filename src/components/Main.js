@@ -1,37 +1,23 @@
-import { useState, useEffect } from "react";
-import { api } from "../utils/Api.js";
+import { useContext } from "react";
 import Card from "./Card.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 export default function Main({
   onEditAvatar,
   onEditProfile,
   onCardClick,
+  onCardDelete,
   onClick,
   onDeleteImage,
   onAddPlace,
+  onCardLike,
+  cards,
 }) {
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  const currentUser = useContext(CurrentUserContext);
+  const userName = currentUser.name;
+  const userDescription = currentUser.about;
+  const userAvatar = currentUser.avatar;
 
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) => console.log(err));
-    api
-      .getCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
   return (
     <main className="content">
       <section className="profile">
@@ -65,7 +51,8 @@ export default function Main({
             key={card._id}
             card={card}
             onCardClick={onCardClick}
-            onDeleteImage={onDeleteImage}
+            onCardDelete={onCardDelete}
+            onCardLike={onCardLike}
           />
         ))}
       </section>

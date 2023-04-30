@@ -1,9 +1,8 @@
 class Api {
-  constructor({baseUrl, headers}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
-
 
   _checkApi(res) {
     if (res.ok) {
@@ -14,82 +13,76 @@ class Api {
   }
 
   setUserInfo({ name, about }) {
-    return fetch(this._baseUrl + '/users/me', {
-      method: 'PATCH',
+    return fetch(this._baseUrl + "/users/me", {
+      method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        about: about
-      })
-    })
-      .then((res) => this._checkApi(res))
+        about: about,
+      }),
+    }).then((res) => this._checkApi(res));
   }
 
   setNewAvatar(avatarLink) {
-    return fetch(this._baseUrl + '/users/me/avatar', {
-      method: 'PATCH',
+    return fetch(this._baseUrl + "/users/me/avatar", {
+      method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify(avatarLink)
-    })
-      .then((res) => this._checkApi(res))
+      body: JSON.stringify(avatarLink),
+    }).then((res) => this._checkApi(res));
   }
 
   getUserInfo() {
-    return fetch(this._baseUrl + '/users/me', {
-      method: 'GET',
-      headers: this._headers
-    })
-      .then((res) => this._checkApi(res))
+    return fetch(this._baseUrl + "/users/me", {
+      method: "GET",
+      headers: this._headers,
+    }).then((res) => this._checkApi(res));
   }
 
   getCards() {
-    return fetch(this._baseUrl + '/cards', {
-      method: 'GET',
-      headers: this._headers
-    })
-      .then((res) => this._checkApi(res))
+    return fetch(this._baseUrl + "/cards", {
+      method: "GET",
+      headers: this._headers,
+    }).then((res) => this._checkApi(res));
   }
 
   addNewCard(item) {
-    return fetch(this._baseUrl + '/cards', {
-      method: 'POST',
+    return fetch(this._baseUrl + "/cards", {
+      method: "POST",
       headers: this._headers,
-      body: JSON.stringify(item)
-    })
-      .then((res) => this._checkApi(res))
+      body: JSON.stringify(item),
+    }).then((res) => this._checkApi(res));
   }
 
-  addLike(cardId) {
-    return fetch(this._baseUrl + `/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers,
-    })
-      .then((res) => this._checkApi(res))
+  changeLikeCardStatus(cardId, isLiked) {
+    return isLiked ? this._removeLike(cardId) : this._addLike(cardId);
   }
 
-  removeLike(cardId) {
+  _addLike(cardId) {
     return fetch(this._baseUrl + `/cards/likes/${cardId}`, {
-      method: 'DELETE',
+      method: "PUT",
       headers: this._headers,
-    })
-      .then((res) => this._checkApi(res))
+    }).then((res) => this._checkApi(res));
+  }
+
+  _removeLike(cardId) {
+    return fetch(this._baseUrl + `/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => this._checkApi(res));
   }
 
   deleteCard(cardId) {
     return fetch(this._baseUrl + `/cards/${cardId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => this._checkApi(res))
+    }).then((res) => this._checkApi(res));
   }
 }
 
-  export const api = new Api({
-    baseUrl: "https://mesto.nomoreparties.co/v1/cohort-61",
-    headers: {
-      authorization: "b975e0db-5f1c-4fce-81c7-76258185d015",
-      "Content-Type": "application/json",
-    },
-  });
-  
-  
+export const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-61",
+  headers: {
+    authorization: "b975e0db-5f1c-4fce-81c7-76258185d015",
+    "Content-Type": "application/json",
+  },
+});
