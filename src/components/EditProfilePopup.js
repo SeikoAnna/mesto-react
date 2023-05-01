@@ -28,13 +28,6 @@ export default function EditProfilePopup({
     setErrorMessageDescription("");
   }, [isOpen, onClose]);
 
-  // useEffect(() => {
-  //   userName.setInputValid(true);
-  //   userDescription.setInputValid(true);
-  //   setErrorMessageName("");
-  //   setErrorMessageDescription("");
-  // }, );
-
   function handleNameChange(e) {
     setName(e.target.value);
     userName.onChange(e);

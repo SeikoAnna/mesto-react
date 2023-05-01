@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { useInput } from "../utils/useInput.js";
-import React from 'react';
+import React from "react";
 
 export default function AddPlacePopup({
   isOpen,
@@ -9,9 +9,8 @@ export default function AddPlacePopup({
   onUpdateCard,
   buttonText,
 }) {
-
-  const cardName = React.useState('');
-  const cardLink = React.useState('');
+  const cardName = React.useState("");
+  const cardLink = React.useState("");
 
   const name = useInput("", { isEmpty: true, minLength: 2 });
   const link = useInput("", { isEmpty: true, minLength: 0, isUrl: false });
@@ -66,12 +65,9 @@ export default function AddPlacePopup({
         ref={cardName}
         placeholder="Название"
         id="popup__title"
-        
         onChange={handleCardNameChange}
         onFocus={name.onFocus}
-        value={name.value || ''}
-        // value={value.name || ''} 
-        // onChange={handleChange}
+        value={name.value || ""}
         required
         minLength="2"
         maxLength="30"
@@ -90,11 +86,9 @@ export default function AddPlacePopup({
         ref={cardLink}
         placeholder="Ссылка на картинку"
         id="popup__picture"
-        // value={value.link || ''} 
-        // onChange={handleChange}
         onChange={handleCardLinkChange}
         onFocus={link.onFocus}
-        value={link.value || ''}
+        value={link.value || ""}
         required
         noValidate
       />
