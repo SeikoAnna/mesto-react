@@ -39,26 +39,21 @@ export default function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen ||  isEditAddPlacePopupOpen || isPopupConfirmDeleteOpen || selectedCard
+
   useEffect(() => {
-    const close = (e) => {
-      if (e.key === "Escape") {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
         closeAllPopups();
       }
-    };
-    isEditProfilePopupOpen ||
-    isEditAvatarPopupOpen ||
-    isEditAddPlacePopupOpen ||
-    isImagePopupOpen ||
-    isPopupConfirmDeleteOpen
-      ? document.addEventListener("keydown", close)
-      : document.addEventListener("keydown", close);
-  }, [
-    isEditProfilePopupOpen,
-    isEditAvatarPopupOpen,
-    isEditAddPlacePopupOpen,
-    isImagePopupOpen,
-    isPopupConfirmDeleteOpen,
-  ]);
+    }
+    if(isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen]) 
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
@@ -100,7 +95,7 @@ export default function App() {
     api
       .deleteCard(deletedCard._id)
       .then(() => {
-        setCards(cards.filter((c) => c._id !== deletedCard._id));
+        setCards(cards.filter((c) => c._id !== deletedCard._id)); 
         closeAllPopups();
       })
       .catch((err) => console.log(err))

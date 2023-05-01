@@ -22,14 +22,18 @@ export default function EditProfilePopup({
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [isOpen]);
-
-  useEffect(() => {
     userName.setInputValid(true);
     userDescription.setInputValid(true);
     setErrorMessageName("");
     setErrorMessageDescription("");
-  }, [onClose]);
+  }, [isOpen, onClose]);
+
+  // useEffect(() => {
+  //   userName.setInputValid(true);
+  //   userDescription.setInputValid(true);
+  //   setErrorMessageName("");
+  //   setErrorMessageDescription("");
+  // }, );
 
   function handleNameChange(e) {
     setName(e.target.value);

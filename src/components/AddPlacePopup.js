@@ -64,8 +64,10 @@ export default function AddPlacePopup({
         ref={cardName}
         placeholder="Название"
         id="popup__title"
+        
         onChange={handleCardNameChange}
         onFocus={name.onFocus}
+        // value={name.value}
         required
         minLength="2"
         maxLength="30"
@@ -84,8 +86,10 @@ export default function AddPlacePopup({
         ref={cardLink}
         placeholder="Ссылка на картинку"
         id="popup__picture"
+       
         onChange={handleCardLinkChange}
         onFocus={link.onFocus}
+        // value={link.value}
         required
         noValidate
       />
