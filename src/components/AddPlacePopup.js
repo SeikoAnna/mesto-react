@@ -9,8 +9,8 @@ export default function AddPlacePopup({
   onUpdateCard,
   buttonText,
 }) {
-  const cardName = React.useState("");
-  const cardLink = React.useState("");
+  const cardName = React.createRef(); 
+  const cardLink = React.createRef();
 
   const name = useInput("", { isEmpty: true, minLength: 2 });
   const link = useInput("", { isEmpty: true, minLength: 0, isUrl: false });
