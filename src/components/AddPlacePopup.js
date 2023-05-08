@@ -9,8 +9,8 @@ export default function AddPlacePopup({
   onUpdateCard,
   buttonText,
 }) {
-  const cardName = React.createRef(); 
-  const cardLink = React.createRef();
+  const [cardName, setCardName] = useState("");
+  const [cardLink, setCardLink] = useState("");
 
   const name = useInput("", { isEmpty: true, minLength: 2 });
   const link = useInput("", { isEmpty: true, minLength: 0, isUrl: false });
@@ -19,23 +19,22 @@ export default function AddPlacePopup({
   const [errorMessageLink, setErrorMessageLink] = useState("");
 
   useEffect(() => {
-    cardName.current.value = "";
-    cardLink.current.value = "";
-  }, [isOpen]);
-
-  useEffect(() => {
-    name.setInputValid(true);
-    link.setInputValid(true);
     setErrorMessageName("");
     setErrorMessageLink("");
-  }, [onClose]);
+    setCardName("");
+    setCardLink("");
+    name.setInputValid(true);
+    link.setInputValid(true);
+  }, [onClose, onUpdateCard]);
 
   function handleCardNameChange(e) {
+    setCardName(e.target.value);
     name.onChange(e);
     setErrorMessageName(e.target.validationMessage);
   }
 
   function handleCardLinkChange(e) {
+    setCardLink(e.target.value);
     link.onChange(e);
     setErrorMessageLink(e.target.validationMessage);
   }
@@ -43,8 +42,8 @@ export default function AddPlacePopup({
   function handleSubmitCard(e) {
     e.preventDefault();
     onUpdateCard({
-      name: cardName.current.value,
-      link: cardLink.current.value,
+      name: cardName,
+      link: cardLink,
     });
   }
 
@@ -62,12 +61,11 @@ export default function AddPlacePopup({
         type="text"
         className="popup__input popup__input_type_title"
         name="name"
-        ref={cardName}
         placeholder="Название"
         id="popup__title"
         onChange={handleCardNameChange}
         onFocus={name.onFocus}
-        value={name.value || ""}
+        value={cardName || ""}
         required
         minLength="2"
         maxLength="30"
@@ -83,12 +81,11 @@ export default function AddPlacePopup({
         type="url"
         className="popup__input popup__input_type_picture"
         name="link"
-        ref={cardLink}
         placeholder="Ссылка на картинку"
         id="popup__picture"
         onChange={handleCardLinkChange}
         onFocus={link.onFocus}
-        value={link.value || ""}
+        value={cardLink || ""}
         required
         noValidate
       />

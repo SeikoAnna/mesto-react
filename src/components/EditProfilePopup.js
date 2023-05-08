@@ -64,7 +64,7 @@ export default function EditProfilePopup({
         name="name"
         placeholder="Введите Ваше имя"
         id="popup__name"
-        value={name ?? ""}
+        value={name || ""}
         onChange={handleNameChange}
         required
         minLength="2"
@@ -84,7 +84,7 @@ export default function EditProfilePopup({
         name="description"
         placeholder="Введите Вашу профессию"
         id="popup__profession"
-        value={description ?? ""}
+        value={description || ""}
         onChange={handleDescriptionChange}
         required
         minLength="2"
